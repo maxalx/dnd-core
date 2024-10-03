@@ -7,13 +7,22 @@ use MaxAlx\DnD\Entities\Character\Abilities\AbilityScores;
 use MaxAlx\DnD\Entities\Character\Abilities\Enums\Ability;
 use MaxAlx\DnD\Entities\Character\Abilities\Enums\Skill;
 use MaxAlx\DnD\Entities\Character\Abilities\Skills;
+use MaxAlx\DnD\Entities\Character\HitPoints\HitDice;
+use MaxAlx\DnD\Entities\Character\HitPoints\HitPoints;
 use MaxAlx\DnD\Entities\Character\Player as PlayerEntity;
+use MaxAlx\DnD\Entities\Dice\CompositeDicePool;
+use MaxAlx\DnD\Entities\Dice\DicePool;
+use MaxAlx\DnD\Entities\Dice\DiceType;
+use MaxAlx\DnD\Exceptions\NotEnoughDataException;
 
 class Player
 {
     public const DEFAULT_NAME = 'Unknown';
 
     private string $name;
+    private int $maxHitPoints;
+    private int $currentHitPoints;
+    private array $hitDicePools = [];
     private AbilityScores $abilityScores;
     private Skills $skills;
     private int $proficiencyBonus;
@@ -26,10 +35,16 @@ class Player
         $this->proficiencyBonus = 0;
     }
 
+    /**
+     * @throws \MaxAlx\DnD\Exceptions\InvalidArgumentException
+     * @throws \MaxAlx\DnD\Exceptions\NotEnoughDataException
+     */
     public function create(): PlayerEntity
     {
         return new PlayerEntity(
             $this->name,
+            $this->createHitPoints(),
+            $this->createHitDice(),
             $this->abilityScores,
             $this->skills,
             $this->proficiencyBonus
@@ -39,6 +54,27 @@ class Player
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function setMaxHitPoints(int $maxHitPoints): self
+    {
+        $this->maxHitPoints = $maxHitPoints;
+
+        return $this;
+    }
+
+    public function setCurrentHitPoints(int $currentHitPoints): self
+    {
+        $this->currentHitPoints = $currentHitPoints;
+
+        return $this;
+    }
+
+    public function addHitDice(DiceType $diceType, int $count = 1, int $modifier = 0): self
+    {
+        $this->hitDicePools[] = new DicePool($diceType, $count, $modifier);
 
         return $this;
     }
@@ -62,5 +98,34 @@ class Player
         $this->proficiencyBonus = $value;
 
         return $this;
+    }
+
+    /**
+     * @throws \MaxAlx\DnD\Exceptions\InvalidArgumentException
+     * @throws \MaxAlx\DnD\Exceptions\NotEnoughDataException
+     */
+    private function createHitPoints(): HitPoints
+    {
+        if (!isset($this->maxHitPoints)) {
+            throw new NotEnoughDataException('Maximum hitPoints must be set');
+        }
+
+        if (!isset($this->currentHitPoints)) {
+            $this->currentHitPoints = $this->maxHitPoints;
+        }
+
+        return new HitPoints($this->maxHitPoints, $this->currentHitPoints);
+    }
+
+    /**
+     * @throws \MaxAlx\DnD\Exceptions\InvalidArgumentException|\MaxAlx\DnD\Exceptions\NotEnoughDataException
+     */
+    private function createHitDice(): HitDice
+    {
+        if (empty($this->hitDicePools)) {
+            throw new NotEnoughDataException('HitDice pools must be set');
+        }
+
+        return new HitDice(...$this->hitDicePools);
     }
 }
