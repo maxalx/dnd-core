@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace MaxAlx\DnD\Entities\Character\Abilities;
+namespace MaxAlx\DnD\Entities\Creatures\Abilities;
 
-use MaxAlx\DnD\Entities\Character\Abilities\Enums\Skill;
+use MaxAlx\DnD\Entities\Creatures\Abilities\Enums\Skill;
 
 class Skills
 {

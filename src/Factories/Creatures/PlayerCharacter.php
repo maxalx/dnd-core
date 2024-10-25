@@ -1,21 +1,21 @@
 <?php
 declare(strict_types=1);
 
-namespace MaxAlx\DnD\Factories\Character;
+namespace MaxAlx\DnD\Factories\Creatures;
 
-use MaxAlx\DnD\Entities\Character\Abilities\AbilityScores;
-use MaxAlx\DnD\Entities\Character\Abilities\Enums\Ability;
-use MaxAlx\DnD\Entities\Character\Abilities\Enums\Skill;
-use MaxAlx\DnD\Entities\Character\Abilities\Skills;
-use MaxAlx\DnD\Entities\Character\HitPoints\HitDice;
-use MaxAlx\DnD\Entities\Character\HitPoints\HitPoints;
-use MaxAlx\DnD\Entities\Character\Player as PlayerEntity;
-use MaxAlx\DnD\Entities\Dice\CompositeDicePool;
+use MaxAlx\DnD\Entities\Creatures\Abilities\AbilityScores;
+use MaxAlx\DnD\Entities\Creatures\Abilities\Enums\Ability;
+use MaxAlx\DnD\Entities\Creatures\Abilities\Enums\Skill;
+use MaxAlx\DnD\Entities\Creatures\Abilities\Skills;
+use MaxAlx\DnD\Entities\Creatures\HitPoints\HitDice;
+use MaxAlx\DnD\Entities\Creatures\HitPoints\HitPoints;
+use MaxAlx\DnD\Entities\Creatures\PlayerCharacter as PlayerEntity;
 use MaxAlx\DnD\Entities\Dice\DicePool;
 use MaxAlx\DnD\Entities\Dice\DiceType;
+use MaxAlx\DnD\Exceptions\BaseException;
 use MaxAlx\DnD\Exceptions\NotEnoughDataException;
 
-class Player
+class PlayerCharacter
 {
     public const DEFAULT_NAME = 'Unknown';
 
@@ -29,26 +29,31 @@ class Player
 
     public function __construct()
     {
-        $this->name = static::DEFAULT_NAME;
-        $this->abilityScores = new AbilityScores();
-        $this->skills = new Skills();
+        $this->name             = static::DEFAULT_NAME;
+        $this->abilityScores    = new AbilityScores();
+        $this->skills           = new Skills();
         $this->proficiencyBonus = 0;
     }
 
     /**
-     * @throws \MaxAlx\DnD\Exceptions\InvalidArgumentException
      * @throws \MaxAlx\DnD\Exceptions\NotEnoughDataException
      */
     public function create(): PlayerEntity
     {
-        return new PlayerEntity(
-            $this->name,
-            $this->createHitPoints(),
-            $this->createHitDice(),
-            $this->abilityScores,
-            $this->skills,
-            $this->proficiencyBonus
-        );
+        try {
+            return new PlayerEntity(
+                $this->name,
+                $this->createHitPoints(),
+                $this->abilityScores,
+                $this->skills,
+                $this->proficiencyBonus,
+                $this->createHitDice(),
+            );
+        } catch (BaseException $exception) {
+            $message = 'Could not create player character: ' . $exception->getMessage();
+
+            throw new NotEnoughDataException($message);
+        }
     }
 
     public function setName(string $name): self

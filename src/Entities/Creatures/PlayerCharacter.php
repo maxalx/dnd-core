@@ -1,25 +1,23 @@
 <?php
 declare(strict_types=1);
-namespace MaxAlx\DnD\Entities\Character;
+namespace MaxAlx\DnD\Entities\Creatures;
 
-use MaxAlx\DnD\Entities\Character\Abilities\AbilityScores;
-use MaxAlx\DnD\Entities\Character\Abilities\Skills;
-use MaxAlx\DnD\Entities\Character\HitPoints\HitDice;
-use MaxAlx\DnD\Entities\Character\HitPoints\HitPoints;
-use MaxAlx\DnD\Factories\Character\Player as PlayerCharacterFactory;
+use MaxAlx\DnD\Entities\Creatures\Abilities\AbilityScores;
+use MaxAlx\DnD\Entities\Creatures\Abilities\Skills;
+use MaxAlx\DnD\Entities\Creatures\HitPoints\HitDice;
+use MaxAlx\DnD\Entities\Creatures\HitPoints\HitPoints;
+use MaxAlx\DnD\Factories\Creatures\PlayerCharacter as PlayerCharacterFactory;
 
-class Player
+class PlayerCharacter extends Creature
 {
     public function __construct(
         private readonly string        $name,
         private readonly HitPoints     $hitPoints,
-        private readonly HitDice       $hitDice,
         private readonly AbilityScores $abilityScores,
         private readonly Skills        $skills,
-        private readonly int           $proficiencyBonus = 0,
-    )
-    {
-    }
+        private readonly int           $proficiencyBonus,
+        private readonly HitDice       $hitDice,
+    ) {}
 
     public function getName(): string
     {

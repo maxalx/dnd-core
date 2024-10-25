@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace MaxAlx\DnD\Entities\Character\Abilities;
+namespace MaxAlx\DnD\Entities\Creatures\Abilities;
 
-use MaxAlx\DnD\Entities\Character\Abilities\Enums\Ability;
+use MaxAlx\DnD\Entities\Creatures\Abilities\Enums\Ability;
 
 class AbilityScores
 {

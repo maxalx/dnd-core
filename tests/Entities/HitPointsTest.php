@@ -3,18 +3,18 @@ declare(strict_types=1);
 
 namespace MaxAlx\DnD\Tests\Entities;
 
-use MaxAlx\DnD\Entities\Character\HitPoints\Exceptions\ZeroHitPointsException;
-use MaxAlx\DnD\Entities\Character\HitPoints\HitPoints;
+use MaxAlx\DnD\Entities\Creatures\HitPoints\Exceptions\ZeroHitPointsException;
+use MaxAlx\DnD\Entities\Creatures\HitPoints\HitPoints;
 use MaxAlx\DnD\Exceptions\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \MaxAlx\DnD\Entities\Character\HitPoints\HitPoints
+ * @covers \MaxAlx\DnD\Entities\Creatures\HitPoints\HitPoints
  */
 class HitPointsTest extends TestCase
 {
     /**
-     * @covers \MaxAlx\DnD\Entities\Character\HitPoints\HitPoints::increase
+     * @covers \MaxAlx\DnD\Entities\Creatures\HitPoints\HitPoints::increase
      */
     public function testHitPointsIncrease(): void
     {
@@ -39,7 +39,7 @@ class HitPointsTest extends TestCase
     }
 
     /**
-     * @covers \MaxAlx\DnD\Entities\Character\HitPoints\HitPoints::decrease
+     * @covers \MaxAlx\DnD\Entities\Creatures\HitPoints\HitPoints::decrease
      */
     public function testHitPointsDecrease(): void
     {

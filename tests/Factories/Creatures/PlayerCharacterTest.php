@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
-namespace MaxAlx\DnD\Tests\Factories\Character;
+namespace MaxAlx\DnD\Tests\Factories\Creatures;
 
-use MaxAlx\DnD\Entities\Character\Abilities\Enums\Ability;
-use MaxAlx\DnD\Entities\Character\Abilities\Enums\Skill;
+use MaxAlx\DnD\Entities\Creatures\Abilities\Enums\Ability;
+use MaxAlx\DnD\Entities\Creatures\Abilities\Enums\Skill;
 use MaxAlx\DnD\Entities\Dice\DiceType;
 use MaxAlx\DnD\Exceptions\NotEnoughDataException;
-use MaxAlx\DnD\Factories\Character\Player as PlayerFactory;
+use MaxAlx\DnD\Factories\Creatures\PlayerCharacter as PlayerFactory;
 use PHPUnit\Framework\TestCase;
 
-class PlayerTest extends TestCase
+class PlayerCharacterTest extends TestCase
 {
     public function testCreateWithData(): void
     {

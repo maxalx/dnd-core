@@ -10,7 +10,7 @@ PHP implementation of "Dungeons &amp; Dragons" game mechanics
   - [x] HitPoints
   - [x] Dice, DicePool, CompositeDicePool
   - [x] HitDice
-  - [ ] Characters hierarchy: Player, NPC, Enemy
+  - [x] Characters hierarchy: Player, NPC, Enemy
   - [ ] Experience and leveling
   - [ ] Inspiration
   - [ ] Effects
@@ -18,8 +18,8 @@ PHP implementation of "Dungeons &amp; Dragons" game mechanics
   - [ ] Armor Class (AC)
   - [ ] ...
 - [ ] Items
-  - [ ] Weapon
   - [ ] Armor
+  - [ ] Weapon
   - [ ] Tool
   - [ ] Potion
   - [ ] Scroll

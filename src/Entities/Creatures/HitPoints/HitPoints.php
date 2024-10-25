@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace MaxAlx\DnD\Entities\Character\HitPoints;
+namespace MaxAlx\DnD\Entities\Creatures\HitPoints;
 
-use MaxAlx\DnD\Entities\Character\HitPoints\Exceptions\ZeroHitPointsException;
+use MaxAlx\DnD\Entities\Creatures\HitPoints\Exceptions\ZeroHitPointsException;
 use MaxAlx\DnD\Exceptions\InvalidArgumentException;
 
 class HitPoints
@@ -55,7 +55,7 @@ class HitPoints
 
     /**
      * @throws \MaxAlx\DnD\Exceptions\InvalidArgumentException
-     * @throws \MaxAlx\DnD\Entities\Character\HitPoints\Exceptions\ZeroHitPointsException
+     * @throws \MaxAlx\DnD\Entities\Creatures\HitPoints\Exceptions\ZeroHitPointsException
      */
     public function decrease(int $decrement): void
     {
